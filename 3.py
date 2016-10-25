@@ -19,8 +19,9 @@ def nextPrime(n):
 
 def find_divisor(num):
     p = 1
-    while p < num:
-        p = nextPrime(p)
+    #while p < num: # is actually unneccesary!!
+    #    p = nextPrime(p)
+    for p in count(2):
         if num%p==0:
             return p
     exit("bruh")
