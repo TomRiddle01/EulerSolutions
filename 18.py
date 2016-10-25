@@ -56,7 +56,7 @@ for i, layer in enumerate(numbers):
         thisLayer.append(n)
         for k, upperNode in enumerate(upperLayer): #optimizable
             if j-k == 0 or j-k==1:
-                upperNode.edgeTo(n, n.value)
+                upperNode.edgeTo(n, 100-n.value) # inverse the cost
     upperLayer = thisLayer
 
 for k, upperNode in enumerate(upperLayer):
