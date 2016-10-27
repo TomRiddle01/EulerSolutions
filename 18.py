@@ -110,3 +110,4 @@ while p:
     p = prev[p]
 
 print(costSum)
+
