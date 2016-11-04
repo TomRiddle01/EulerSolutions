@@ -11,7 +11,7 @@
  #  Evaluate the sum of all the amicable numbers under 10000.
 
  # Answer: 51e04cd4e55e7e415bf24de9e1b0f3ff
-
+from math import *
 def findDivsum(n):
     divsum = 0 
     for i in range(1,n):
@@ -20,21 +20,17 @@ def findDivsum(n):
     return divsum
 
 amic = dict()
-for i in range(285):
-    s = findDivsum(i)
-    if s in amic:
-        amic[s].append(i)
-    else:
-        amic[s] = [i]
-
-sumz = 0
-for k,l in amic.items():
-    if len(l)>1:
-        print(l)
-        sumz += sum(l)
-print(sumz)
+ss=0
+for i in range(10000):
+    a = i
+    b = findDivsum(a)
+    a_ = findDivsum(b)
+    if a == a_ != b:
+        ss+=a
+        print(a,b)
 
 
+print(ss)
 
 import hashlib
-print(hashlib.md5(str(sumz).encode('utf-8')).hexdigest())
+print(hashlib.md5(str(ss).encode('utf-8')).hexdigest())
