@@ -16,13 +16,9 @@ class Triangulars:
         self.num += self.i
         return self.num
 
-pre = 30000
-primes = []
+
 
 def is_prime(p):  # Lucas-Lehmer Test
-    global primes
-    if p < len(primes):
-        return primes[p]
     if p == 2:
         return True
     elif p <= 1 or p % 2 == 0:
@@ -32,8 +28,6 @@ def is_prime(p):  # Lucas-Lehmer Test
             if p % i == 0: return False
         return True
 
-for i in range(pre):
-    primes.append(is_prime(i))
 
 
 
@@ -75,7 +69,7 @@ def find():
             continue
         ps = primeFactors(t)
         l = divisorCount(ps)
-        print("%d %d" % (t, l))
+        #print("%d %d" % (t, l))
         if l > 500:
             print("Alle Vielfache von:"+str(ps))
             break
