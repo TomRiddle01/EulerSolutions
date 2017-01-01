@@ -1,6 +1,7 @@
 from itertools import *
 import math
 import numpy
+from EulerVerify import verify
 
 def findSmallest_wrong():
     for i in count(1):
@@ -18,4 +19,4 @@ def findSmallest():
                 return n
 
 
-print(findSmallest())
+verify(findSmallest())

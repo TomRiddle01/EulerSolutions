@@ -6,6 +6,10 @@ import threading
 import sys
 import time
 import argparse
+import inspect
+
+
+starttime = time.time()
 
 class bcolors:
     HEADER = '\033[95m'
@@ -76,17 +80,41 @@ class EulerVerify:
                 else:
                     fail("\tWrong: Solution %s: %s != %s" % (self.solution, self.hashes[num-1], hash))
 
-#if len(sys.argv) > 1:
-#    if sys.argv[1] == "all":
-#        EulerVerify().executeAll()
+    def _verify(self, value):
+        t = time.time()-starttime
+        file = inspect.stack()[2][1]
+        match = lambda s: re.match("([0-9]*).py", s)
+        num = int(match(file).group(1))
+        print(num)
+        hash = hashlib.md5(str(value).encode("utf-8")).hexdigest()
+        if self.hashes[num-1] == hash:
+            if t < 1:
+                ok("Passed in %.3f" % t)
+            else:
+                warning("Passed in %.3f" % t)
+        else:
+            fail("Wrong: Solution %s: " % (value))
+            fail("Hashes: %s != %s" % (self.hashes[num-1], hash))
+        print(value)
 
-timeout = 10
-parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('option', type=str, metavar="option", nargs=1,
-                    help='number or all')
-parser.add_argument('-t', dest='timeout', default=[10], type=int, metavar="seconds",  nargs=1,
-                    help='timeout for problem execution')
 
-args = parser.parse_args()
-if "all" in args.option:
-    EulerVerify().executeAll(args.timeout[0])
+def verify(value):
+    EulerVerify()._verify(value)
+
+
+
+
+if len(sys.argv) > 1:
+    timeout = 10
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('option', type=str, metavar="option", nargs=1,
+                        help='number or all')
+    parser.add_argument('-t', dest='timeout', default=[10], type=int, metavar="seconds",  nargs=1,
+                        help='timeout for problem execution')
+
+    args = parser.parse_args()
+    if "all" in args.option:
+        EulerVerify().executeAll(args.timeout[0])
+
+    if args.option[0].isdigit():
+        EulerVerify().execute(int(args.option[0]))
