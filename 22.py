@@ -19,7 +19,7 @@
 #   Answer: f2c9c91cb025746f781fa4db8be3983f
 
 
-with open('names.txt', 'r') as myfile:
+with open('22_names.txt', 'r') as myfile:
         names=myfile.read().replace('\n', '')
 
 names = eval("["+names+"]")
