@@ -8,7 +8,7 @@ limit = 28123
 # calculated
 limit = 20162
 
-def abundant(n):
+def abundant(n): # this could work faster but i dont wont to copy the whole algorithm :p
     divsum = 1
     for i in range(2,int(n)):
         if n%i == 0:
