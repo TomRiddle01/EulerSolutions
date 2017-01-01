@@ -36,5 +36,3 @@ for i,name in enumerate(names,1):
     result += i*word(name)
 
 print(result)
-import hashlib
-print(hashlib.md5(str(result).encode('utf-8')).hexdigest())

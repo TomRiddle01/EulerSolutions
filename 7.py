@@ -17,9 +17,10 @@ def nextPrime(n):
             return n+i
 
 p = 0
-for i in range(0, 10001):
+for i in range(0, 10001+1):
     p = nextPrime(p)
-    print("p(%d) = %d"%(i,p))
+    #print("p(%d) = %d"%(i,p))
+print(p)
 
 
 

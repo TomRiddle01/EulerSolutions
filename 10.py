@@ -38,4 +38,4 @@ def sieve(below):
 
 
 
-print("Sum is: %d"%sum(sieve(2000000)))
+print(sum(sieve(2000000)))

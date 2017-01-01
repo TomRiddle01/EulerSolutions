@@ -94,6 +94,7 @@ def second():
         print("%d %d" % (t, l))
         if l > 500:
             print(ps)
+            print(t) #solution
             break
 
 
