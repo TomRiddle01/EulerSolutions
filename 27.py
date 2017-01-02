@@ -7,9 +7,9 @@ isprime = prime_sieve(87400)
 m = 0
 ma = 0
 mb = 0
-for a in range(-999, 1000, 2): # a has to be odd
-    for b in range(-1000, 1000):
-        if not isprime[abs(b)]: # idea from forum
+for a in range(-999, 1000, 2):  # a has to be odd
+    for b in range(0, 1000):    # starting from zero because it must be prime
+        if not isprime[abs(b)]: # idea from forum als
             continue
         f = getFormula(a,b)
         if not isprime[f(40)]:
