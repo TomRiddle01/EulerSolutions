@@ -1,4 +1,4 @@
-
+from Euler import *
 
 i=1
 f0 = 0
@@ -12,4 +12,4 @@ while len(str(f2))<1000:
 
 
 result = i
-print(result)
+verify(result)
