@@ -88,7 +88,6 @@ class EulerVerify:
         file = inspect.stack()[2][1]
         match = lambda s: re.match("([0-9]*).py", s)
         num = int(match(file).group(1))
-        print(num)
         hash = hashlib.md5(str(value).encode("utf-8")).hexdigest()
         if self.hashes[num-1] == hash:
             if t < 1:
