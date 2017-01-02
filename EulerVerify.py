@@ -96,6 +96,7 @@ class EulerVerify:
             fail("Wrong: Solution %s: " % (value))
             fail("Hashes: %s != %s" % (self.hashes[num-1], hash))
         print(value)
+        exit()
 
 
 def verify(value):

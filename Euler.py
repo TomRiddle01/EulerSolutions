@@ -1,4 +1,8 @@
+import EulerVerify
 
+
+def verify(value):
+    EulerVerify.EulerVerify()._verify(value)
 
 primes = set()
 learned_primes = 0
@@ -17,6 +21,16 @@ def is_prime(n):
             return False
     primes.add(n)
     return True
+
+def prime_sieve(below):
+    isprime = [True]*below
+    isprime[0] = False
+    isprime[1] = False
+    for (i, prime) in enumerate(isprime):
+        if prime:
+            for n in range(i*i, below, i):
+                isprime[n] = False
+    return isprime
 
 
 def find_divisor(num):
