@@ -41,13 +41,16 @@ class EulerVerify:
         with open("solutions.txt") as f:
             self.hashes = [line.strip() for line in f.readlines()]
 
-    def executeAll(self, timeout = 10):
+    def executeAll(self, timeout = 10, commit_id = None):
         for i in range(max(self.files.keys())):
             if i in self.files:
-                self.execute(i, timeout)
+                self.execute(i, timeout, commit_id)
 
-    def execute(self, num, timeout = 10):
+    def execute(self, num, timeout = 10, commit_id = None):
         if num in self.files:
+            if commit_id and not self.file_changed(num, commit_id):
+                return
+
             print("Running Euler Problem #%d" % (num))
             self.solution = ""
 
@@ -98,6 +101,14 @@ class EulerVerify:
         print(value)
         exit()
 
+    def file_changed(self, num, commit_id):
+        p = subprocess.Popen(["git", "diff", commit_id, "--", str(num)+".py"], \
+            stdout=subprocess.PIPE, \
+            stderr=subprocess.PIPE)
+        t = time.time()
+        out, err = p.communicate("")
+
+        return len(out) != 0
 
 def verify(value):
     EulerVerify()._verify(value)
@@ -112,10 +123,12 @@ if len(sys.argv) > 1:
                         help='number or all')
     parser.add_argument('-t', dest='timeout', default=[10], type=int, metavar="seconds",  nargs=1,
                         help='timeout for problem execution')
+    parser.add_argument('-c', dest='commit_id', default=[None], type=str, metavar="commit",  nargs=1,
+                        help='only execute scripts changed since this commit it')
 
     args = parser.parse_args()
     if "all" in args.option:
-        EulerVerify().executeAll(args.timeout[0])
+        EulerVerify().executeAll(args.timeout[0], args.commit_id[0])
 
     if args.option[0].isdigit():
-        EulerVerify().execute(int(args.option[0]))
+        EulerVerify().execute(int(args.option[0]), args.commit_id[0])
