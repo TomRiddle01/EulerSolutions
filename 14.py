@@ -1,33 +1,32 @@
-def seq(n):
-    if n%2==0:
-        return n/2
+from Euler import *
+
+collatz = {}
+def collatz_len(n):
+    if n == 1:
+        return 1
+    if n in collatz:
+        return collatz[n]
     else:
-        return 3*n+1
+        if n % 2 == 0:
+            nn = n//2
+            l = collatz_len(nn)
+            mem(nn,l)
+            return 1+l
+        else:
+            nn = 3*n+1
+            l =  collatz_len(nn)
+            mem(nn,l)
+            return 1+l
 
-class Sequence:
-    def __init__(self, start):
-        self.v = start
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        self.v = seq(self.v)
-        return self.v
-
+def mem(n,l):
+    collatz[n] = l
 
 starting = 0
 maximum = 0
-for i in range(1,1000000):
-    l = [i]
-    for x in Sequence(i):
-        l.append(x)
-        if x == 1:
-            break # next sequence
-    num = len(l)
-    if num > maximum:
-         starting = i
-         maximum = num
-    #print("%d: %d"%(i,maximum))
-
+for n in range(1,1000000, 1):
+    l = collatz_len(n)
+    if l > maximum:
+        maximum = l
+        starting = n
 print("%d: %d"%(starting, maximum))
+verify(starting)
