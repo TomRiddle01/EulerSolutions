@@ -11,7 +11,7 @@ for a in range(price, -1, -200):
             for d in range(c, -1, -20):
                 for e in range(d, -1, -10):
                     for f in range(e, -1, -5):
-                        for g in range(f, -11, -2):
+                        for g in range(f, -1, -2):
                             ways+=1
 
 verify(ways)
