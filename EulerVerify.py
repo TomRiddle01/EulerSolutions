@@ -54,7 +54,7 @@ class EulerVerify:
             print("Running Euler Problem #%d" % (num))
             self.solution = ""
 
-            p = subprocess.Popen(["python3", str(num)+".py"], \
+            p = subprocess.Popen(["pypy3", str(num)+".py"], \
                 stdout=subprocess.PIPE, \
                 stderr=subprocess.PIPE)
             t = time.time()
