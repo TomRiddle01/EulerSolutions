@@ -32,6 +32,13 @@ def prime_sieve(below):
                 isprime[n] = False
     return isprime
 
+def init_primes(below):
+    global learned_primes, primes
+    isprime = prime_sieve(below)
+    for p, prime in enumerate(isprime):
+        if prime: primes.add(p)
+    learned_primes = below
+
 
 def find_divisor(num):
     for i in range(learned_primes, num+1):
@@ -47,6 +54,7 @@ def find_divisor(num):
 
 def prime_factors(num):
     factors = []
+    if num == 0: raise ValueError()
 
     while not is_prime(num):
         p = find_divisor(num)
