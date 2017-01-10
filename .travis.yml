@@ -7,5 +7,5 @@ install:
   - pip install -r requirements.txt
 # command to run tests
 script: 
-  - python EulerVerify.py all
-  - pypy EulerVerify.py all
+  - python3 EulerVerify.py all
+  - pypy3 EulerVerify.py all
