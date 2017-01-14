@@ -13,5 +13,5 @@ for a in Ps:
     for b in Ps:
         if a+b in Ps:
             if b-a in Ps:
-                verify(abs(a-b))
-
+                verify(abs(int(a-b)))
+)

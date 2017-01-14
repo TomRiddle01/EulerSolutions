@@ -13,7 +13,7 @@ for i in range(144,100000): # estimated
 
 for t in Ts:
     if t in Ps and t in Hs:
-        verify(t)
+        verify(int(t))
 
 
 

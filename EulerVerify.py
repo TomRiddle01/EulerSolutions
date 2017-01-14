@@ -54,15 +54,19 @@ class EulerVerify:
             print("Running Euler Problem #%d" % (num))
             self.solution = ""
 
-            p = subprocess.Popen(["pypy3", str(num)+".py"], \
+            p = subprocess.Popen(["python3", str(num)+".py"], \
                 stdout=subprocess.PIPE, \
                 stderr=subprocess.PIPE)
             t = time.time()
+            self.out = ""
+            self.err = ""
             def target():
                 out, err = p.communicate("")
                 lines = str(out, "UTF-8").split("\n")
                 if len(lines) >= 2:
                     self.solution = lines[-2]
+                self.out = str(out, "UTF-8")
+                self.err = str(err, "UTF-8")
             thread = threading.Thread(target=target)
             thread.start()
 
@@ -82,6 +86,8 @@ class EulerVerify:
                         warning("\tPassed in %.3f" % t)
                 else:
                     fail("\tWrong: Solution %s: %s != %s" % (self.solution, self.hashes[num-1], hash))
+                    print(self.out)
+                    print(self.err)
 
     def _verify(self, value):
         t = time.time()-starttime
