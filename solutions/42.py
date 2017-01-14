@@ -12,7 +12,7 @@ def wordvalue(w):
     return s
 
 ss = 0
-with open("42_words.txt") as file:
+with open("solutions/42_words.txt") as file:
     data = file.read()
     words = eval(data)
 

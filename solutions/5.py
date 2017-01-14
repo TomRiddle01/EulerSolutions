@@ -1,7 +1,7 @@
 from itertools import *
 import math
 import numpy
-from EulerVerify import verify
+from Euler import verify
 
 # ca 1.6 - 2.0s
 def findSmallest():

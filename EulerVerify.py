@@ -34,17 +34,21 @@ class EulerVerify:
         self.scan()
 
     def scan(self):
-        files=glob.glob("./*.py")
-        match = lambda s: re.match("./([0-9]*).py", s)
+        files=glob.glob("./solutions/*.py")
+        match = lambda s: re.match("./solutions/([0-9]*).py", s)
         self.files = dict((int(match(file).group(1)), file) for file in files if match(file))
 
-        with open("solutions.txt") as f:
+        with open("hashes.txt") as f:
             self.hashes = [line.strip() for line in f.readlines()]
 
     def executeAll(self, timeout = 10, commit_id = None):
+        failed = False
         for i in range(max(self.files.keys())):
             if i in self.files:
-                self.execute(i, timeout, commit_id)
+                if not self.execute(i, timeout, commit_id):
+                    failed = True
+        if failed:
+            exit(1)
 
     def execute(self, num, timeout = 10, commit_id = None):
         if num in self.files:
@@ -54,7 +58,7 @@ class EulerVerify:
             print("Running Euler Problem #%d" % (num))
             self.solution = ""
 
-            p = subprocess.Popen(["python3", str(num)+".py"], \
+            p = subprocess.Popen(["python3", "solutions/"+str(num)+".py"], \
                 stdout=subprocess.PIPE, \
                 stderr=subprocess.PIPE)
             t = time.time()
@@ -76,7 +80,7 @@ class EulerVerify:
                 fail("\tThread exceeded %d second time limit" % (timeout))
                 p.terminate()
                 thread.join()
-                return
+                return False
             else:
                 hash = hashlib.md5(self.solution.encode('utf-8')).hexdigest()
                 if self.hashes[num-1] == hash:
@@ -84,15 +88,17 @@ class EulerVerify:
                         ok("\tPassed in %.3f" % t)
                     else:
                         warning("\tPassed in %.3f" % t)
+                    return True
                 else:
                     fail("\tWrong: Solution %s: %s != %s" % (self.solution, self.hashes[num-1], hash))
                     print(self.out)
                     print(self.err)
+                    return False
 
     def _verify(self, value):
         t = time.time()-starttime
         file = inspect.stack()[2][1]
-        match = lambda s: re.match("([0-9]*).py", s)
+        match = lambda s: re.match("solutions/([0-9]*).py", s)
         num = int(match(file).group(1))
         hash = hashlib.md5(str(value).encode("utf-8")).hexdigest()
         if self.hashes[num-1] == hash:

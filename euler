@@ -1,0 +1,2 @@
+#!/bin/bash
+trigger "python3 solutions/$1.py" solutions

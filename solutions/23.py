@@ -1,8 +1,5 @@
-from saver import *
 import itertools
 
-s = Saver()
-#s.ignore()
 
 limit = 28123
 # calculated
@@ -17,13 +14,10 @@ def abundant(n): # this could work faster but i dont wont to copy the whole algo
             return True
     return False
 
-abundants = s.load("abun")
-if abundants == None:
-    abundants = list()
-    for i in range(limit+1):
-        if abundant(i):
-            abundants.append(i)
-    s.save("abun", abundants)
+abundants = list()
+for i in range(limit+1):
+    if abundant(i):
+        abundants.append(i)
 
 r_abundants = abundants[::-1]
 
