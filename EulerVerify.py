@@ -44,7 +44,7 @@ class EulerVerify:
     def scan(self):
         files = glob.glob("./solutions/*.py")
 
-        def match(s): re.match("./solutions/([0-9]*).py", s)
+        def match(s): return re.match("./solutions/([0-9]*).py", s)
 
         self.files = dict((int(match(file).group(1)), file)
                           for file in files if match(file))
@@ -112,7 +112,7 @@ class EulerVerify:
         t = time.time()-starttime
         file = inspect.stack()[2][1]
 
-        def match(s): re.match("solutions/([0-9]*).py", s)
+        def match(s): return re.match("solutions/([0-9]*).py", s)
 
         num = int(match(file).group(1))
         hash = hashlib.md5(str(value).encode("utf-8")).hexdigest()
